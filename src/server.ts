@@ -1,18 +1,20 @@
 import Fastify from 'fastify';
+import knex from 'knex';
 
-const fastify = Fastify({
+const app = Fastify({
   logger: true
 });
 
-fastify.get('/', async (request, reply) => {
-  return { hello: 'world' };
+app.get('/', async (request, reply) => {
+  const table = await knex('sqlite_schema').select('*');
+  return table;
 });
 
 const start = async () => {
   try {
-    await fastify.listen({ port: 3200 });
+    await app.listen({ port: 3200 });
   } catch (err) {
-    fastify.log.error(err);
+    app.log.error(err);
     process.exit(1);
   }
 };

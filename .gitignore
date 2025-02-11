@@ -23,6 +23,9 @@ tmp/
 out/
 .cache/
 
+# Arquivos locais
+db/*.db
+
 # Dependências locais
 .DS_Store
 .env
