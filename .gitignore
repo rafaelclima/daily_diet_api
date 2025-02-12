@@ -74,3 +74,4 @@ prisma/migrations/
 *.log
 *.gz
 *.zip
+src/db/dev.sqlite
