@@ -11,12 +11,12 @@ export async function up(knex: Knex) {
       table.timestamp('created_at').defaultTo(knex.fn.now()); // Data de criação da refeição
     })
     .then(() => {
-      console.log('Tabela meals criada com sucesso!');
+      console.log(`Tabela 'meals' criada com sucesso!`);
     });
 }
 
 export async function down(knex: Knex) {
   await knex.schema.dropTableIfExists('meals').then(() => {
-    console.log('Tabela meals removida com sucesso!');
+    console.log(`Tabela 'meals' removida com sucesso!`);
   });
 }

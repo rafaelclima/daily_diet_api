@@ -1,19 +1,10 @@
-import Fastify from 'fastify';
-import knexSetup from './db/database';
+import { app } from './app';
 
-const app = Fastify();
-
-app.get('/hello', async (request, reply) => {
-  const table = await knexSetup('users').select('*');
-  return table;
-});
-
-const start = async () => {
-  try {
-    await app.listen({ port: 3200 });
-  } catch (err) {
-    app.log.error(err);
+// Iniciando o servidor
+app.listen({ port: 3200 }, (err, address) => {
+  if (err) {
+    console.error(err);
     process.exit(1);
   }
-};
-start();
+  console.log(`Servidor rodando em ${address}`);
+});
