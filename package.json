@@ -10,12 +10,7 @@
     "start": "node dist/server.js",
     "format": "biome format .",
     "lint": "biome check .",
-    "knex:init": "knex init -x ts",
-    "knex:run": "knex --knexfile src/database/knex/Environment.ts",
-    "knex:migrate": "pnpm run knex:run -- migrate:latest",
-    "knex:rollback": "knex --knexfile ./src/database/knex/Environment.ts migrate:rollback",
-    "knex:rollback-all": "knex --knexfile ./src/database/knex/Environment.ts migrate:rollback --all",
-    "knex:seed": "knex --knexfile ./src/database/knex/Environment.ts seed:run"
+    "knex": "node --no-warnings --import tsx ./node_modules/.bin/knex"
   },
   "keywords": [],
   "author": "Rafael Lima",
@@ -23,11 +18,9 @@
   "devDependencies": {
     "@arthurfiorette/biomejs-config": "^1.0.7",
     "@biomejs/biome": "^1.9.4",
+    "@types/knex": "^0.16.1",
     "@types/node": "^22.13.1",
-    "sqlite3": "^5.1.7",
     "ts-node": "^10.9.2",
-    "ts-node-register": "^1.0.0",
-    "tsx": "^4.19.2",
     "typescript": "^5.7.3"
   },
   "dependencies": {
@@ -36,6 +29,9 @@
     "fastify-cookie": "^5.7.0",
     "knex": "^3.1.0",
     "pg": "^8.13.1",
+    "pnpm": "^10.3.0",
+    "sqlite3": "^5.1.7",
+    "tsx": "^4.19.2",
     "zod": "^3.24.1"
   }
 }

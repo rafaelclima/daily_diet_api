@@ -1,12 +1,10 @@
 import Fastify from 'fastify';
-import knex from 'knex';
+import knexSetup from './db/database';
 
-const app = Fastify({
-  logger: true
-});
+const app = Fastify();
 
-app.get('/', async (request, reply) => {
-  const table = await knex('sqlite_schema').select('*');
+app.get('/hello', async (request, reply) => {
+  const table = await knexSetup('users').select('*');
   return table;
 });
 

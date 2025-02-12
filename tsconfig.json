@@ -8,7 +8,7 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "outDir": "./build",
-    "rootDir": "./src"
+    "rootDir": "./"
   },
   "include": ["src/**/*", "db/migrations/*"],
   "exclude": ["node_modules"]

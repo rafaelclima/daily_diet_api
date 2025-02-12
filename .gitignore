@@ -25,6 +25,7 @@ out/
 
 # Arquivos locais
 db/*.db
+db/*.sqlite
 
 # Dependências locais
 .DS_Store
