@@ -1,7 +1,7 @@
 import type { FastifyInstance } from 'fastify';
-import { authenticate } from '../middlewares/check_user_authenticate';
-import knexSetup from '../db/database';
 import { z } from 'zod';
+import knexSetup from '../db/database';
+import { authenticate } from '../middlewares/check_user_authenticate';
 
 interface MealRequestParams {
   id: string;
@@ -9,7 +9,7 @@ interface MealRequestParams {
 
 export const mealsRoutes = async (app: FastifyInstance) => {
   // Retorna as refeições do usuário logado
-  app.get('/', { preHandler: [authenticate] }, async (request, reply) => {
+  app.get('/', { onRequest: [authenticate] }, async (request, reply) => {
     const userId = z.string().uuid().nonempty().parse(request.session.userId);
     const meals = await knexSetup('meals').where('user_id', userId).select('*');
 
@@ -17,7 +17,7 @@ export const mealsRoutes = async (app: FastifyInstance) => {
   });
 
   // Cria uma refeição para o usuário logado
-  app.post('/', { preHandler: [authenticate] }, async (request, reply) => {
+  app.post('/', { onRequest: [authenticate] }, async (request, reply) => {
     const userId = z.string().uuid().nonempty().parse(request.session.userId);
 
     const createMealSchema = z.object({
@@ -41,7 +41,7 @@ export const mealsRoutes = async (app: FastifyInstance) => {
   });
 
   // Atualiza uma refeição criada pelo usuário logado
-  app.put('/:id', { preHandler: [authenticate] }, async (request, reply) => {
+  app.put('/:id', { onRequest: [authenticate] }, async (request, reply) => {
     const sessionUserId = z.string().uuid().nonempty().parse(request.session.userId);
 
     const updateMealSchema = z.object({

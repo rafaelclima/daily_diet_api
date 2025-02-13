@@ -1,7 +1,9 @@
 import type { FastifyReply, FastifyRequest } from 'fastify';
 
-export const authenticate = async (request: FastifyRequest, reply: FastifyReply) => {
+export const authenticate = (request: FastifyRequest, reply: FastifyReply, done: () => void) => {
   if (!request.session.userId) {
-    return reply.status(401).send({ message: 'Unauthorized' });
+    return reply.status(403).send({ message: 'Unauthorized' });
   }
+
+  done();
 };
