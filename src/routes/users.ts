@@ -3,7 +3,7 @@ import knexSetup from '../db/database';
 import { z } from 'zod';
 
 export const usersRoutes = async (app: FastifyInstance) => {
-  app.get('/', async (request, reply) => {
+  app.get('/', async (_, reply) => {
     const users = await knexSetup('users').select('*');
     reply.status(200).send({ users });
   });
