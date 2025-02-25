@@ -1,7 +1,7 @@
 import type { FastifyInstance } from 'fastify';
-import { z } from 'zod';
-import knexSetup from '../db/database';
 import { authenticate } from '../middlewares/check_user_authenticate';
+import knexSetup from '../db/database';
+import { z } from 'zod';
 
 interface MealRequestParams {
   id: string;
@@ -67,5 +67,44 @@ export const mealsRoutes = async (app: FastifyInstance) => {
     } else {
       reply.status(404).send({ message: 'Refeição não encontrada ou não autorizada' });
     }
+  });
+
+  // Deleta uma refeição criada pelo usuário logado
+  app.delete('/:id', { onRequest: [authenticate] }, async (request, reply) => {
+    const sessionUserId = z.string().uuid().nonempty().parse(request.session.userId);
+
+    const { id } = request.params as MealRequestParams;
+    const deletedMeal = await knexSetup('meals')
+      .where('id', id)
+      .andWhere('user_id', sessionUserId)
+      .delete();
+
+    if (deletedMeal) {
+      reply.status(200).send({ message: 'Refeição deletada com sucesso!' });
+    } else {
+      reply.status(404).send({ message: 'Refeição não encontrada ou exclusão não autorizada' });
+    }
+  });
+
+  // Retorna uma refeição criada pelo usuário logado
+  app.get('/:id', { onRequest: [authenticate] }, async (request, reply) => {
+    const sessionUserId = z.string().uuid().nonempty().parse(request.session.userId);
+
+    if (!sessionUserId) {
+      return reply.status(401).send({ message: 'Usuário não autenticado' });
+    }
+
+    const { id } = request.params as MealRequestParams;
+
+    const meal = await knexSetup('meals')
+      .where('id', id)
+      .andWhere('user_id', sessionUserId)
+      .first();
+
+    if (!meal) {
+      return reply.status(404).send({ message: 'Refeição não encontrada' });
+    }
+
+    reply.status(200).send(meal);
   });
 };
