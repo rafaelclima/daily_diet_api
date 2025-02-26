@@ -1,5 +1,6 @@
 import type { FastifyInstance } from 'fastify';
 import { authenticate } from '../middlewares/check_user_authenticate';
+import crypto from 'node:crypto';
 import knexSetup from '../db/database';
 import { z } from 'zod';
 
