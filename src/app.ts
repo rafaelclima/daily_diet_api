@@ -1,15 +1,12 @@
-import 'dotenv/config';
-
+import cors from '@fastify/cors';
+import { env } from './env';
+import fastify from 'fastify';
 import fastifyCookie from '@fastify/cookie';
 import fastifySession from '@fastify/session';
-import fastify from 'fastify';
 import { login } from './routes/login';
+import { logout } from './routes/logout';
 import { mealsRoutes } from './routes/meals';
 import { usersRoutes } from './routes/users';
-
-if (!process.env.SESSION_SECRET) {
-  throw new Error('A variável de ambiente SESSION_SECRET não está definida.');
-}
 
 export const app = fastify({
   logger: {
@@ -23,10 +20,13 @@ export const app = fastify({
   }
 });
 
+app.register(cors, {
+  origin: true
+});
 app.register(fastifyCookie);
 
 app.register(fastifySession, {
-  secret: process.env.SESSION_SECRET,
+  secret: env.SESSION_SECRET,
   cookie: {
     secure: false,
     httpOnly: true,
@@ -37,3 +37,4 @@ app.register(fastifySession, {
 app.register(login, { prefix: '/login' });
 app.register(mealsRoutes, { prefix: '/' });
 app.register(usersRoutes, { prefix: '/users' });
+app.register(logout, { prefix: '/logout' });
