@@ -4,10 +4,13 @@ A **Daily Diet API** ☕️ foi criada para ajudar no controle de dieta diária 
 
 ## 🛠️ Tecnologias Utilizadas
 
-- ⚡ **[Fastify](https://www.fastify.io/)** - Framework web para Node.js  
-- 📦 **[Knex.js](https://knexjs.org/)** - Query Builder para interação com o banco de dados  
-- 🗄️ **[SQLite3](https://www.sqlite.org/)** - Banco de dados leve e embutido  
-- 🔍 **[Zod](https://zod.dev/)** - Validação de schemas para entrada de dados  
+<div data-badges>
+  <img src="https://img.shields.io/badge/Fastify-000000?style=for-the-badge&logo=fastify&logoColor=white" alt="Fastify">
+  <img src="https://img.shields.io/badge/Knex.js-000000?style=for-the-badge&logo=knex&logoColor=white" alt="Knex.js">
+  <img src="https://img.shields.io/badge/SQLite-07405E?style=for-the-badge&logo=sqlite&logoColor=white" alt="SQLite">
+  <img src="https://img.shields.io/badge/Zod-1E4D2B?style=for-the-badge&logo=zod&logoColor=white" alt="Zod">
+  <img src="https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white" alt="Node.js">
+</div>
 
 ## 🎯 Funcionalidades
 
